@@ -1,13 +1,16 @@
 import React, { useRef, useState } from "react";
 import { validateCredentials } from "../utils/validateCredentials";
 import ErrorMessage from "./ErrorMessage";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 export default function Form() {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const [name, setName] = useState("");
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessages, setErrorMessages] = useState(null);
+  const [fireBaseErrors, setFireBaseErrors] = useState(null);
 
   const email = useRef(null);
   const password = useRef(null);
@@ -26,15 +29,46 @@ export default function Form() {
           name.current.value
         );
 
-    // const validate = validateCredentials(
-    //   email.current.value,
-    //   password.current.value
-    // );
     setErrorMessages(validate);
 
     if (validate !== null) return;
 
     // Sign In / Sign Up Logic
+    if (!isSignInForm) {
+      // Sign Up Logic
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log("User signed up:", user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setFireBaseErrors(errorMessage);
+        });
+    } else {
+      // Sign In Logic
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log("User signed in:", user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setFireBaseErrors(errorMessage);
+        });
+    }
   };
 
   return (
@@ -50,8 +84,6 @@ export default function Form() {
               id="name"
               type="text"
               ref={name}
-              // value={name}
-              // onChange={(e) => setName(e.target.value)}
               className="w-full px-4 py-4 bg-gray-700 border-0 rounded-md text-white  focus:outline-none focus:ring-0 focus:bg-gray-600 transition-colors"
               placeholder="Full Name"
             />
@@ -67,8 +99,6 @@ export default function Form() {
           id="email"
           type="text"
           ref={email}
-          // value={email}
-          // onChange={(e) => setEmail(e.target.value)}
           className="w-full px-4 py-4 bg-gray-700 border-0 rounded-md text-white  focus:outline-none focus:ring-0 focus:bg-gray-600 transition-colors"
           placeholder="Email or mobile number"
         />
@@ -79,8 +109,6 @@ export default function Form() {
           id="password"
           type="password"
           ref={password}
-          // value={password}
-          // onChange={(e) => setPassword(e.target.value)}
           className="w-full px-4 py-4 bg-gray-700 border-0 rounded-md text-white focus:outline-none focus:ring-0 focus:bg-gray-600 transition-colors"
           placeholder="Password"
         />
@@ -113,7 +141,7 @@ export default function Form() {
       </div>
 
       <div className="mt-8 text-gray-400">
-        <p className="text-sm">
+        <p className="text-sm mb-2">
           {isSignInForm ? "New to Netflix?" : "Already a member?"}
           <span
             className="text-white hover:underline ml-2 cursor-pointer"
@@ -123,6 +151,7 @@ export default function Form() {
           </span>
           .
         </p>
+        {fireBaseErrors && <ErrorMessage error={fireBaseErrors} />}
       </div>
     </div>
   );
