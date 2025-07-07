@@ -7,11 +7,7 @@ const Login = () => {
   return (
     <div>
       <Header />
-      <img
-        src={NETFLIX_BACKGROUND}
-        alt="background"
-        className="absolute inset-0 w-full h-full object-cover"
-      />
+      <img src={NETFLIX_BACKGROUND} alt="background" className="absolute" />
       <Form />
     </div>
   );

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { validateCredentials } from "../utils/validateCredentials";
-import { AlertCircle } from "lucide-react";
+import ErrorMessage from "./ErrorMessage";
 
 export default function Form() {
   // const [email, setEmail] = useState("");
@@ -18,7 +18,7 @@ export default function Form() {
   };
 
   const handleSubmit = () => {
-    const validate = name.current.value
+    const validate = isSignInForm
       ? validateCredentials(email.current.value, password.current.value)
       : validateCredentials(
           email.current.value,
@@ -31,6 +31,10 @@ export default function Form() {
     //   password.current.value
     // );
     setErrorMessages(validate);
+
+    if (validate !== null) return;
+
+    // Sign In / Sign Up Logic
   };
 
   return (
@@ -53,12 +57,7 @@ export default function Form() {
             />
             {/** Name Error Message */}
             {errorMessages?.fullName && (
-              <div className="flex items-start gap-2 p-2 bg-red-50 border border-red-200 rounded-lg">
-                <AlertCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-                <p className="text-sm text-red-700 leading-relaxed">
-                  {errorMessages.fullName}
-                </p>
-              </div>
+              <ErrorMessage error={errorMessages?.fullName} />
             )}
           </>
         )}
@@ -74,14 +73,7 @@ export default function Form() {
           placeholder="Email or mobile number"
         />
         {/** Email Error Message */}
-        {errorMessages?.email && (
-          <div className="flex items-start gap-2 p-2 bg-red-50 border border-red-200 rounded-lg">
-            <AlertCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-            <p className="text-sm text-red-700 leading-relaxed">
-              {errorMessages.email}
-            </p>
-          </div>
-        )}
+        {errorMessages?.email && <ErrorMessage error={errorMessages.email} />}
         {/* Password Input */}
         <input
           id="password"
@@ -94,12 +86,7 @@ export default function Form() {
         />
         {/** Password Error Message */}
         {errorMessages?.password && (
-          <div className="flex items-start gap-2 p-2 bg-red-50 border border-red-200 rounded-lg">
-            <AlertCircle className="w-4 h-4 text-red-500 mt-0.5 flex-shrink-0" />
-            <p className="text-sm text-red-700 leading-relaxed">
-              {errorMessages.password}
-            </p>
-          </div>
+          <ErrorMessage error={errorMessages.password} />
         )}
 
         {/* Sign In Button */}
