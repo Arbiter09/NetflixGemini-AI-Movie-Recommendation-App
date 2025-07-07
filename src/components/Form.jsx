@@ -4,10 +4,17 @@ import ErrorMessage from "./ErrorMessage";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { addUser } from "../Redux/userSlice";
 
 export default function Form() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessages, setErrorMessages] = useState(null);
   const [fireBaseErrors, setFireBaseErrors] = useState(null);
@@ -44,6 +51,25 @@ export default function Form() {
         .then((userCredential) => {
           // Signed up
           const user = userCredential.user;
+          updateProfile(user, {
+            displayName: name.current.value,
+          })
+            .then(() => {
+              // Profile updated!
+              const { uid, email, displayName } = auth.currentUser;
+              // Dispatch user data to Redux store or handle it as needed
+              dispatch(
+                addUser({ uid: uid, email: email, displayName: displayName })
+              );
+              navigate("/browse");
+              // ...
+            })
+            .catch((error) => {
+              // An error occurred
+              // ...
+            });
+
+          navigate("/browse");
           console.log("User signed up:", user);
         })
         .catch((error) => {
@@ -61,6 +87,7 @@ export default function Form() {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
+          navigate("/browse");
           console.log("User signed in:", user);
         })
         .catch((error) => {
