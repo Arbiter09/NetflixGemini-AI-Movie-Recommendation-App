@@ -14,3 +14,5 @@ export const API_OPTIONS = {
     Authorization: `Bearer ${import.meta.env.VITE_TMDB_API_READ_ACCESS_TOKEN}`,
   },
 };
+
+export const IMG_TMDB_CDN_URL = "https://image.tmdb.org/t/p/w500";
