@@ -7,12 +7,10 @@ import {
   updateProfile,
 } from "firebase/auth";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { addUser } from "../Redux/userSlice";
 
 export default function Form() {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -61,15 +59,12 @@ export default function Form() {
               dispatch(
                 addUser({ uid: uid, email: email, displayName: displayName })
               );
-              navigate("/browse");
-              // ...
             })
             .catch((error) => {
               // An error occurred
               // ...
             });
 
-          navigate("/browse");
           console.log("User signed up:", user);
         })
         .catch((error) => {
@@ -87,7 +82,7 @@ export default function Form() {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-          navigate("/browse");
+
           console.log("User signed in:", user);
         })
         .catch((error) => {
