@@ -13,7 +13,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         // User is signed in
         const { uid, email, displayName } = user;
@@ -25,6 +25,11 @@ const Header = () => {
         navigate("/");
       }
     });
+
+    return () => {
+      // Cleanup subscription on unmount
+      unsubscribe();
+    };
   }, []);
   return (
     <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex items-center justify-between">

@@ -5,6 +5,7 @@ import { auth } from "../utils/firebase";
 import { useDispatch, useSelector } from "react-redux";
 import { removeUser } from "../Redux/userSlice";
 import { useNavigate } from "react-router";
+import { PROFILE_LOGO } from "../utils/constants";
 
 export default function ProfileToggleButton() {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,7 +45,7 @@ export default function ProfileToggleButton() {
           className="flex items-center space-x-2 hover:opacity-80 transition-opacity focus:outline-none"
         >
           <img
-            src="https://wallpapers.com/images/hd/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.jpg"
+            src={PROFILE_LOGO}
             alt="Profile"
             className="w-10 h-10 rounded-lg"
           />
