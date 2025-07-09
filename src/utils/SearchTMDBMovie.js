@@ -8,7 +8,7 @@ const SearchTMDBMovie = async (movie) => {
   );
   const json = await data.json();
 
-  return json.results.slice(0, 5);
+  return json.results[0];
 };
 
 export default SearchTMDBMovie;

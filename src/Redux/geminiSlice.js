@@ -6,6 +6,7 @@ const geminiSlice = createSlice({
     geminiSearchView: false,
     movieResults: null,
     movieNames: null,
+    isLoading: false,
   },
   reducers: {
     toggleGeminiSearchView: (state) => {
@@ -16,9 +17,13 @@ const geminiSlice = createSlice({
       state.movieResults = movieResults;
       state.movieNames = movieNames;
     },
+    toggleLoading: (state) => {
+      state.isLoading = !state.isLoading;
+    },
   },
 });
 
-export const { toggleGeminiSearchView, addMovieResults } = geminiSlice.actions;
+export const { toggleGeminiSearchView, addMovieResults, toggleLoading } =
+  geminiSlice.actions;
 
 export default geminiSlice.reducer;

@@ -3,34 +3,42 @@ import geminiAi from "../../utils/GeminiAi";
 import { useRef } from "react";
 import SearchTMDBMovie from "../../utils/SearchTMDBMovie";
 import { useDispatch } from "react-redux";
-import { addMovieResults } from "../../Redux/geminiSlice";
+import { addMovieResults, toggleLoading } from "../../Redux/geminiSlice";
 
 const GeminiSearchBar = () => {
   const searchText = useRef(null);
   const dispatch = useDispatch();
 
   const handleGeminiSearchClick = async () => {
-    const user_input = searchText.current.value;
+    dispatch(toggleLoading());
+    try {
+      const user_input = searchText.current.value;
 
-    const query = `You are an AI-powered movie recommendation engine. When the user gives any free-form request—whether it’s a genre (“Horror Movies”), an era (“something old”), a mood (“something uplifting”), a theme (“space adventure”), or any other description—your job is to interpret their intent and return exactly 5 movie titles that best match.  
-    • Output only the titles, as a single comma-separated list.  
+      const query = `You are an AI-powered movie recommendation engine. When the user gives any free-form request—whether it’s a genre (“Horror Movies”), an era (“something old”), a mood (“something uplifting”), a theme (“space adventure”), or any other description—your job is to interpret their intent and return exactly 10 movie titles that best match.
+    • Output only the titles, as a single comma-separated list.
     • Do not include any extra text, numbering, or explanations.
     User request: "${user_input}"
     `;
 
-    const response = await geminiAi.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: query,
-    });
+      const response = await geminiAi.models.generateContent({
+        model: "gemini-2.5-flash",
+        contents: query,
+      });
 
-    const movieNames = response.candidates[0].content.parts[0].text.split(",");
+      const movieNames =
+        response.candidates[0].content.parts[0].text.split(",");
 
-    console.log(movieNames);
-    const promiseArray = movieNames.map((movie) => SearchTMDBMovie(movie));
+      console.log(movieNames);
+      const promiseArray = movieNames.map((movie) => SearchTMDBMovie(movie));
 
-    const res = await Promise.all(promiseArray);
-    dispatch(addMovieResults({ movieResults: res, movieNames: movieNames }));
-    console.log(res);
+      const res = await Promise.all(promiseArray);
+      dispatch(addMovieResults({ movieResults: res, movieNames: movieNames }));
+    } catch (err) {
+      console.error("Search failed:", err);
+      // you might dispatch an error action here if you have one
+    } finally {
+      dispatch(toggleLoading()); // stop spinner
+    }
   };
 
   return (

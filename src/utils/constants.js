@@ -18,3 +18,6 @@ export const API_OPTIONS = {
 export const IMG_TMDB_CDN_URL = "https://image.tmdb.org/t/p/w500";
 
 export const WORD_LIMIT = 40;
+
+export const DEFAULT_MOVIE_POSTER =
+  "https://previews.123rf.com/images/puruan/puruan1702/puruan170208905/72742724-cinema-film-icon-in-doodle-sketch-lines-symbol-records-take-start.jpg";
