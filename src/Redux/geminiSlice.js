@@ -4,6 +4,8 @@ const geminiSlice = createSlice({
   name: "gemini",
   initialState: {
     geminiSearchView: false,
+    movieResults: null,
+    movieNames: null,
   },
   reducers: {
     toggleGeminiSearchView: (state) => {

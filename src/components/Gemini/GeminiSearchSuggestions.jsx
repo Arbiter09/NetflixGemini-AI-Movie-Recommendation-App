@@ -1,7 +1,7 @@
 import React from "react";
 
 const GeminiSearchSuggestions = () => {
-  return <div>GeminiSearchSuggestions</div>;
+  return <div></div>;
 };
 
 export default GeminiSearchSuggestions;
