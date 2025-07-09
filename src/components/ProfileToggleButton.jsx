@@ -29,7 +29,7 @@ export default function ProfileToggleButton() {
       });
   };
   const handleMenuClick = (action) => {
-    console.log(`${action} clicked`);
+    // console.log(`${action} clicked`);
     setIsOpen(false);
   };
 

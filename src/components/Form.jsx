@@ -65,7 +65,7 @@ export default function Form() {
               // ...
             });
 
-          console.log("User signed up:", user);
+          // console.log("User signed up:", user);
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -83,7 +83,7 @@ export default function Form() {
           // Signed in
           const user = userCredential.user;
 
-          console.log("User signed in:", user);
+          // console.log("User signed in:", user);
         })
         .catch((error) => {
           const errorCode = error.code;
