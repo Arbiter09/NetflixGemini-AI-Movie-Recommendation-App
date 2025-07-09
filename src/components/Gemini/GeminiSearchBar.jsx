@@ -2,9 +2,12 @@ import { Search } from "lucide-react";
 import geminiAi from "../../utils/GeminiAi";
 import { useRef } from "react";
 import SearchTMDBMovie from "../../utils/SearchTMDBMovie";
+import { useDispatch } from "react-redux";
+import { addMovieResults } from "../../Redux/geminiSlice";
 
 const GeminiSearchBar = () => {
   const searchText = useRef(null);
+  const dispatch = useDispatch();
 
   const handleGeminiSearchClick = async () => {
     const user_input = searchText.current.value;
@@ -20,13 +23,13 @@ const GeminiSearchBar = () => {
       contents: query,
     });
 
-    const movieResults =
-      response.candidates[0].content.parts[0].text.split(",");
+    const movieNames = response.candidates[0].content.parts[0].text.split(",");
 
-    console.log(movieResults);
-    const promiseArray = movieResults.map((movie) => SearchTMDBMovie(movie));
+    console.log(movieNames);
+    const promiseArray = movieNames.map((movie) => SearchTMDBMovie(movie));
 
     const res = await Promise.all(promiseArray);
+    dispatch(addMovieResults({ movieResults: res, movieNames: movieNames }));
     console.log(res);
   };
 
