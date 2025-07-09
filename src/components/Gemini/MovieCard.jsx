@@ -6,10 +6,19 @@ import {
   getImageUrl,
 } from "../../utils/utilityFunctions";
 import { DEFAULT_MOVIE_POSTER } from "../../utils/constants";
+import { useNavigate } from "react-router";
 
 const MovieCard = ({ movie }) => {
+  const navigate = useNavigate();
+  const handleMovieClick = () => {
+    navigate("/movies/" + movie.original_title);
+  };
+
   return (
-    <div className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer">
+    <div
+      onClick={handleMovieClick}
+      className="bg-gray-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 cursor-pointer"
+    >
       {/* Movie Poster */}
       <div className="relative aspect-[2/3] overflow-hidden">
         <img

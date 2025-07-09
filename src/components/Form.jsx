@@ -9,9 +9,11 @@ import {
 import { auth } from "../utils/firebase";
 import { useDispatch } from "react-redux";
 import { addUser } from "../Redux/userSlice";
+import { useNavigate } from "react-router";
 
 export default function Form() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessages, setErrorMessages] = useState(null);
@@ -59,6 +61,7 @@ export default function Form() {
               dispatch(
                 addUser({ uid: uid, email: email, displayName: displayName })
               );
+              navigate("/browse");
             })
             .catch((error) => {
               // An error occurred
@@ -82,7 +85,7 @@ export default function Form() {
         .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
-
+          navigate("/browse");
           // console.log("User signed in:", user);
         })
         .catch((error) => {
@@ -122,7 +125,7 @@ export default function Form() {
           type="text"
           ref={email}
           className="w-full px-4 py-4 bg-gray-700 border-0 rounded-md text-white  focus:outline-none focus:ring-0 focus:bg-gray-600 transition-colors"
-          placeholder="Email or mobile number"
+          placeholder="Email (test_acc: jas@gmail.com)"
         />
         {/** Email Error Message */}
         {errorMessages?.email && <ErrorMessage error={errorMessages.email} />}
@@ -132,7 +135,7 @@ export default function Form() {
           type="password"
           ref={password}
           className="w-full px-4 py-4 bg-gray-700 border-0 rounded-md text-white focus:outline-none focus:ring-0 focus:bg-gray-600 transition-colors"
-          placeholder="Password"
+          placeholder="Password (test_acc: Jas@1234)"
         />
         {/** Password Error Message */}
         {errorMessages?.password && (

@@ -1,15 +1,21 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleGeminiSearchView } from "../../Redux/geminiSlice";
+import { useLocation, useNavigate } from "react-router";
 
 export default function MovieSearchButton() {
   const [isHovered, setIsHovered] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
   const geminiSearchView = useSelector(
     (store) => store.gemini.geminiSearchView
   );
 
   const handleGeminiToggle = () => {
+    if (location.pathname !== "/browse") {
+      navigate("/browse");
+    }
     dispatch(toggleGeminiSearchView());
   };
 

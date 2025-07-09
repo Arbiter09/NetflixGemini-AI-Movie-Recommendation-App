@@ -19,7 +19,7 @@ const Header = () => {
         // User is signed in
         const { uid, email, displayName } = user;
         dispatch(addUser({ uid: uid, email: email, displayName: displayName }));
-        navigate("/browse");
+        // navigate("/browse");
       } else {
         // User is signed out
         dispatch(removeUser());
@@ -34,7 +34,14 @@ const Header = () => {
   }, []);
   return (
     <div className="fixed w-screen px-8 py-2 bg-gradient-to-b from-black z-30 flex items-center justify-between">
-      <img className="w-44" src={NETFLIX_LOGO} alt="logo" />
+      <img
+        className="w-44 cursor-pointer"
+        src={NETFLIX_LOGO}
+        alt="logo"
+        onClick={() => {
+          navigate("/browse");
+        }}
+      />
       {user && (
         <div className="flex gap-1">
           <GeminiButton />

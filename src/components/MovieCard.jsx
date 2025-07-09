@@ -1,12 +1,21 @@
-import React from "react";
-import { IMG_TMDB_CDN_URL } from "../utils/constants";
+import { useNavigate } from "react-router";
+import { getImageUrl } from "../utils/utilityFunctions";
 
-const MovieCard = ({ posterPath }) => {
+const MovieCard = ({ movie }) => {
+  const navigate = useNavigate();
+
+  const handleMovieClick = () => {
+    navigate("/movies/" + movie.original_title);
+  };
+
   return (
-    <div className="w-48 mr-4">
+    <div
+      onClick={handleMovieClick}
+      className="w-48 mr-4 cursor-pointer transform transition duration-300 hover:scale-105"
+    >
       <img
         alt="movie poster"
-        src={IMG_TMDB_CDN_URL + posterPath}
+        src={getImageUrl(movie.poster_path)}
         className="rounded-2xl"
       />
     </div>
