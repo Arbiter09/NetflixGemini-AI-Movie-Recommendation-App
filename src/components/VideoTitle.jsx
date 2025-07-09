@@ -5,7 +5,7 @@ import { WORD_LIMIT } from "../utils/constants";
 
 const VideoTitle = ({ title, description }) => {
   return (
-    <div className="w-screen aspect-video pt-[12%] px-6 md:px-24 absolute text-white bg-gradient-to-r from-black">
+    <div className="w-screen aspect-video pt-[15%] px-6 md:px-24 absolute text-white bg-gradient-to-r from-black">
       <h1 className="text-6xl font-bold mb-6 ">{title}</h1>
       <p className="text-xl w-1/3 text-gray-300 font-light">
         {useTruncateWords(description, WORD_LIMIT)}
