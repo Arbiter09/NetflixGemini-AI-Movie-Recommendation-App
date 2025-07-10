@@ -146,8 +146,8 @@ Explore key features and UI of Netflix-Gemini below:
 
 **2. Clone this repository:**
 ```bash
-git clone https://github.com/yourusername/netflix-gemini.git
-cd netflix-gemini
+git clone https://github.com/Arbiter09/NetflixGemini-AI-Movie-Recommendation-App.git
+cd NetflixGemini-AI-Movie-Recommendation-App
 ````
 
 **3. Install dependencies:**
@@ -302,16 +302,3 @@ firebase deploy
 * Built with [Vite](https://vitejs.dev/) + [React](https://reactjs.org/)
 
 ---
-
-```
-
----
-
-**Let me know if you want:**
-- Example code snippets added to the README
-- Screenshots/gif sections (just upload or describe)
-- FAQ/Troubleshooting expanded
-- Anything else specific!
-
-This version is suitable for open source, professional resumes, or hackathon/project showcase!
-```
