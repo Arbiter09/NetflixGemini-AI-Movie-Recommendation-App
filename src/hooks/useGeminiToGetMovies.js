@@ -1,4 +1,4 @@
-import geminiAi from "../utils/GeminiAi";
+import geminiAi from "../utils/geminiAi";
 import SearchTMDBMovie from "../utils/SearchTMDBMovie";
 
 const useGeminiToGetMovies = async (user_input) => {

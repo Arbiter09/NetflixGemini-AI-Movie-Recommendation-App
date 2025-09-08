@@ -1,5 +1,5 @@
 import { Search } from "lucide-react";
-import geminiAi from "../../utils/GeminiAi";
+import geminiAi from "../../utils/geminiAi";
 import { useRef } from "react";
 import SearchTMDBMovie from "../../utils/SearchTMDBMovie";
 import { useDispatch } from "react-redux";
