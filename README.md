@@ -2,10 +2,6 @@
 
 A Netflix-inspired, AI-powered movie discovery and streaming interface. Blazing fast with Vite, styled with Tailwind CSS, authenticated with Firebase, global state managed via Redux Toolkit, and enhanced with Gemini AI search + recommendations, leveraging TMDB APIs.
 
-**Live Demo:**  
-[https://netflixgemini-91781.web.app/](https://netflixgemini-91781.web.app/)
-
----
 
 ## 📸 Screenshots
 
